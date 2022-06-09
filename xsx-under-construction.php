@@ -69,13 +69,13 @@ class UnderConstruction {
 
 	public function create_preview_menu() {
 
-		$page = add_menu_page(
+		$page = add_submenu_page(
+			'options-general.php',
 			esc_html__('Under Construction', 'xsx-under-construction'),
 			esc_html__('Under Construction', 'xsx-under-construction'),
 			'manage_options',
 			self::SLUG,
 			[$this, 'render_menu'],
-			'dashicons-welcome-view-site'
 		);
 
 		add_action('load-'.$page, [$this, 'delete_action']);

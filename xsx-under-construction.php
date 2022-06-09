@@ -22,6 +22,8 @@
 
 namespace XXSimoXX\UnderConstruction;
 
+require_once 'classes/UpdateClient.class.php';
+
 class UnderConstruction {
 
 	private $options = false;

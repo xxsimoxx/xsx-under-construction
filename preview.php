@@ -22,10 +22,9 @@ if (preg_match('/^'.stripslashes($_SERVER['REQUEST_SCHEME']).$_SERVER['SERVER_NA
 setcookie(
 	'selective_preview',
 	$value,
-	time() + 60 * 60 * 24 * 30,
+	0,
 	'/',
 	$_SERVER['SERVER_NAME'], //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-
 	true,
 	true
 );

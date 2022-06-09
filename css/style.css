@@ -1,0 +1,9 @@
+.xuc-admin-bar {
+	background: #e9bd00 !important;
+}
+.xuc-admin-bar a{
+	color: #000 !important;
+}
+.xuc-admin-bar a:hover{
+	color: #72aee6 !important;
+}

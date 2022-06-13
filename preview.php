@@ -1,5 +1,9 @@
 <?php
 
+/*
+This file is called directly so I don't have CP escaping function.
+*/
+
 // Check that everything is in place.
 if (!isset($_REQUEST['preview']) || !isset($_REQUEST['redirect']) || !isset($_SERVER['REQUEST_SCHEME']) || !isset($_SERVER['SERVER_NAME'])) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	if (isset($_COOKIE['selective_preview'])) {

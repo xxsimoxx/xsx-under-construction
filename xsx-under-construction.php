@@ -4,7 +4,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: Under Construction
  * Description: Redirect not logged in users. Allow testers to see the site sending a magic link.
- * Version: 0.0.1
+ * Version: 1.0.0
  * Author: Simone Fioravanti
  * Author URI: https://software.gieffeedizioni.it
  * Plugin URI: https://software.gieffeedizioni.it
@@ -294,9 +294,13 @@ class UnderConstruction {
 			return;
 		}
 
+		// No needed information? Define the field.
+		if (!isset($_SERVER['SCRIPT_NAME'])) {
+			$_SERVER['SCRIPT_NAME'] = '';
+		}
+
 		// Let people login.
-		$allowed_pages = apply_filters('xsx-under-construction-allowed-pages-ids', [7966]); // 7966 is login page
-		if (in_array(get_queried_object_id(), $allowed_pages)) {
+		if (stripos(sanitize_text_field(wp_unslash($_SERVER['SCRIPT_NAME'])), strrchr(wp_login_url(), '/')) !== false) {
 			return;
 		}
 

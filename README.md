@@ -21,10 +21,6 @@ This works by creating a session cookie.
 
 # F.A.Q.
 
-## Filters
-
-`xsx-under-construction-allowed-pages-ids` let you filter an array of page IDs that are not redirected. This default to `array(7966)` that is only the login page.
-
 # Screenshots
 <a name="settings">![1](images/screenshot-1.jpg)</a>
 <a name="maintenance">![2](images/screenshot-2.jpg)</a>

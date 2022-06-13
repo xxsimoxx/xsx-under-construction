@@ -298,6 +298,15 @@ class UnderConstruction {
 		if (!isset($_SERVER['SCRIPT_NAME'])) {
 			$_SERVER['SCRIPT_NAME'] = '';
 		}
+		if (!isset($_SERVER['REQUEST_SCHEME'])) {
+			$_SERVER['REQUEST_SCHEME'] = '';
+		}
+		if (!isset($_SERVER['HTTP_HOST'])) {
+			$_SERVER['HTTP_HOST'] = '';
+		}
+		if (!isset($_SERVER['REQUEST_URI'])) {
+			$_SERVER['REQUEST_URI'] = '';
+		}
 
 		// Let people login.
 		if (stripos(sanitize_text_field(wp_unslash($_SERVER['SCRIPT_NAME'])), strrchr(wp_login_url(), '/')) !== false) {
@@ -306,7 +315,7 @@ class UnderConstruction {
 		
 		// Let people view our maintenance page.
 		$this->load_options();
-		if ($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] === $this->options['redirect_to']) {
+		if (esc_url_raw(wp_unslash($_SERVER['REQUEST_SCHEME']).'://'.wp_unslash($_SERVER['HTTP_HOST']).wp_unslash($_SERVER['REQUEST_URI'])) === $this->options['redirect_to']) {
 			return;
 		}
 

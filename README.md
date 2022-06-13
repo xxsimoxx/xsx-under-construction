@@ -19,8 +19,6 @@ A note can be associated with the key: it can help you remember the person you s
 Under each key the "Copy to clipboard" allows you to copy a link that you can send to the person you want to see the site.
 This works by creating a session cookie.
 
-# F.A.Q.
-
 # Screenshots
 <a name="settings">![1](images/screenshot-1.jpg)</a>
 <a name="maintenance">![2](images/screenshot-2.jpg)</a>

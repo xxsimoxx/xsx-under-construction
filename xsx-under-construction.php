@@ -56,7 +56,7 @@ class UnderConstruction {
 		// Default values
 		$this->options = [
 			'ver'		  => '001',
-			'redirect_to' => plugin_dir_url(__FILE__).'under-construction.html',
+			'redirect_to' => plugin_dir_url(__FILE__).'templates/maintenance-1.html',
 			'keys'        => [
 				['key' => 12453679, 'notes' => 'Key given to Joe.',],
 				['key' => 47893215, 'notes' => 'Key given to Kate.',],
@@ -303,9 +303,14 @@ class UnderConstruction {
 		if (stripos(sanitize_text_field(wp_unslash($_SERVER['SCRIPT_NAME'])), strrchr(wp_login_url(), '/')) !== false) {
 			return;
 		}
+		
+		// Let people view our maintenance page.
+		$this->load_options();
+		if ($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] === $this->options['redirect_to']) {
+			return;
+		}
 
 		// Check for the "magic key" cookie.
-		$this->load_options();
 		if (isset($_COOKIE['selective_preview']) && $this->is_valid_key(intval($_COOKIE['selective_preview']))) {
 			return;
 		}

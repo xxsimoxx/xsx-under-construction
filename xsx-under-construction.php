@@ -419,7 +419,7 @@ class UnderConstructionListTable extends \WP_List_Table {
 		foreach ($this->keys as $key) {
 			$data[] = [
 				'key'   => $key['key'],
-				'link'  => plugin_dir_url(__FILE__).'preview.php?preview='.$key['key'].'&redirect='.esc_url_raw(site_url()),
+				'link'  => plugin_dir_url(__FILE__).'preview.php?preview='.$key['key'],
 				'notes' => $key['notes'],
 			];
 		}

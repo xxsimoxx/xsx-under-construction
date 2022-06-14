@@ -19,7 +19,8 @@ $value = preg_replace('/[^0-9]/', '', $_REQUEST['preview']); //phpcs:ignore
 if (!isset($_REQUEST['redirect'])) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	exit;
 }
-if (preg_match('/^'.stripslashes($_SERVER['REQUEST_SCHEME']).$_SERVER['SERVER_NAME'].'/', $_REQUEST['redirect'])) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+// Don't accept redirect outside this domain.
+if (!preg_match('{^'.stripslashes($_SERVER['REQUEST_SCHEME']).'://'.stripslashes($_SERVER['SERVER_NAME']).'}', stripslashes($_REQUEST['redirect']))) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 	exit;
 }
 

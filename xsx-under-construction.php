@@ -4,7 +4,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: Under Construction
  * Description: Redirect not logged in users. Allow testers to see the site sending a magic link.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Simone Fioravanti
  * Author URI: https://software.gieffeedizioni.it
  * Plugin URI: https://software.gieffeedizioni.it
@@ -102,7 +102,7 @@ class UnderConstruction {
 		echo '<div class="xuc xuc-url">';
 		echo '<h2>'.esc_html__('Redirect to', 'xsx-under-construction').'</h2>';
 		echo '<p>'.esc_html__('Here you can change were your not logged in user are redirected to.', 'xsx-under-construction').'<br>';
-		echo '<i>'.sprintf(esc_html__('At %1$s you can find a very basic under construction page.', 'xsx-under-construction'), esc_url_raw(plugin_dir_url(__FILE__)).'under-construction.html').'</i></p>';
+		echo '<i>'.sprintf(esc_html__('At %1$s you can find a very basic under construction page.', 'xsx-under-construction'), esc_url_raw(plugin_dir_url(__FILE__)).'templates/maintenance-1.html').'</i></p>';
 
 		echo '<form action="'.esc_url_raw(add_query_arg(['action' => 'url'], admin_url('admin.php?page='.self::SLUG))).'" method="POST">';
 		wp_nonce_field('url', '_xuc');

@@ -7,3 +7,16 @@
 .xuc-admin-bar a:hover{
 	color: #72aee6 !important;
 }
+.xuc-pw {
+	width: 200px;
+	padding: 10px;
+	animation: rotate 0.5s linear infinite;
+}
+.xuc-pw:hover {
+	-webkit-filter: brightness(70%);
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	-ms-transition: all 1s ease;
+	transition: all 1s ease;
+}

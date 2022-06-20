@@ -4,11 +4,11 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: Under Construction
  * Description: Redirect not logged in users. Allow testers to see the site sending a magic link.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: Simone Fioravanti
  * Author URI: https://software.gieffeedizioni.it
  * Plugin URI: https://software.gieffeedizioni.it
- * Text Domain: codepotent-update-manager
+ * Text Domain: xsx-under-construction
  * Domain Path: /languages
  * License: GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -31,13 +31,11 @@ class UnderConstruction {
 	const SLUG = 'xsx-under-construction';
 
 	public function __construct() {
-
 		add_action('template_redirect', [$this, 'maybe_redirect']);
 		add_action('admin_menu', [$this, 'create_preview_menu'], 100);
 		add_action('wp_before_admin_bar_render', [$this, 'toolbar']);
 		add_action('admin_enqueue_scripts', [$this, 'styles']);
 		register_uninstall_hook(__FILE__, [__CLASS__, 'uninstall']);
-
 	}
 
 	private function load_options() {
@@ -87,6 +85,20 @@ class UnderConstruction {
 
 	}
 
+	private function render_embedded () {
+		$templates = scandir(dirname(__FILE__).'/templates');
+		foreach ($templates as $template) {
+			if (!preg_match('{\.html$}', $template)) {
+				continue;
+			}
+			$name  = preg_replace('{\.html$}', '', $template);
+			$image = plugin_dir_url(__FILE__).'images/'.$name.'.svg';
+			$url = esc_url_raw(plugin_dir_url(__FILE__).'templates/'.$template);
+			echo '<a href="#" onclick="document.getElementById(\'url\').value=\''.esc_url_raw($url).'\'"><img src="'.esc_url_raw($image).'" title="'.esc_html($name).'" class="xuc-pw"></a>';
+
+		}
+	}
+
 	public function render_menu () {
 
 		echo '<div class="wrap">';
@@ -102,7 +114,6 @@ class UnderConstruction {
 		echo '<div class="xuc xuc-url">';
 		echo '<h2>'.esc_html__('Redirect to', 'xsx-under-construction').'</h2>';
 		echo '<p>'.esc_html__('Here you can change were your not logged in user are redirected to.', 'xsx-under-construction').'<br>';
-		echo '<i>'.sprintf(esc_html__('At %1$s you can find a very basic under construction page.', 'xsx-under-construction'), esc_url_raw(plugin_dir_url(__FILE__)).'templates/maintenance-1.html').'</i></p>';
 
 		echo '<form action="'.esc_url_raw(add_query_arg(['action' => 'url'], admin_url('admin.php?page='.self::SLUG))).'" method="POST">';
 		wp_nonce_field('url', '_xuc');
@@ -110,12 +121,15 @@ class UnderConstruction {
 		echo '<input type="text" size="'.(int)(strlen($this->options['redirect_to'])).'" name="url" id="url" value="'.esc_url_raw($this->options['redirect_to']).'"></input>';
 		echo '<input type="submit" class="button button-primary" value="'.esc_html__('Update', 'xsx-under-construction').'"></input>';
 		echo '</form>';
+		echo '<p><i>'.esc_html__('Click on the images below to get a basic page.', 'xsx-under-construction').'</i></p>';
+		$this->render_embedded();
 		echo '</div>';
 
 		echo '<div class="xuc xuc-keys">';
 		echo '<h2>'.esc_html__('Magic links', 'xsx-under-construction').'</h2>';
 		echo '<p>'.esc_html__('If you want someone to give a look to this site send them a magic link.', 'xsx-under-construction').'<br>';
-		echo sprintf(esc_html__('The link will set a session cookie and redirect them to the actual site: %1$s.', 'xsx-under-construction'), esc_url_raw(site_url())).'<br>';
+		/* translators: %1$s is site URL. */
+		echo sprintf(esc_html__('The link will set a session cookie and redirect them to the actual site: %1$s.', 'xsx-under-construction'), '<i>'.esc_url_raw(site_url()).'</i>').'<br>';
 		echo esc_html__('Use the "Copy to clipboard" link under the key to get the url to send.', 'xsx-under-construction').'</p>';
 
 		$ListTable = new UnderConstructionListTable();
@@ -341,7 +355,7 @@ class UnderConstruction {
 	}
 
 	public function styles() {
-		wp_enqueue_style('xsx-under-construction-css', plugins_url('css/style.css', __FILE__), [], '0.0.1');
+		wp_enqueue_style('xsx-under-construction-css', plugins_url('css/style.css', __FILE__), [], '0.0.2');
 	}
 
 	public static function uninstall() {

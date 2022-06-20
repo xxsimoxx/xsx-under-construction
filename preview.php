@@ -31,4 +31,4 @@ setcookie(
 	true
 );
 
-wp_safe_redirect(site_url()); 
+wp_safe_redirect(site_url());

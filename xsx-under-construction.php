@@ -4,7 +4,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: Under Construction
  * Description: Redirect not logged in users. Allow testers to see the site sending a magic link.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Requires PHP: 5.6
  * Requires CP: 1.4
  * Author: Simone Fioravanti

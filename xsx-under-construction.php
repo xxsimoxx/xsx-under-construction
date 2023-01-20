@@ -340,6 +340,11 @@ class UnderConstruction {
 			return;
 		}
 
+		// Check if the query is for an Update Manager's endpoint.
+		if (defined('\XSX_UC_SAFE_UM') && \XSX_UC_SAFE_UM && defined('CodePotent\UpdateManager\PLUGIN_SHORT_SLUG') && preg_match('/^\/\?update=/', esc_url_raw(wp_unslash($_SERVER['REQUEST_URI']))) === 1) {
+			return;
+		}
+
 		// Redirect to selected destination. Not using wp_safe_redirect for flexibility.
 		wp_redirect($this->options['redirect_to'], 307); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 		exit();

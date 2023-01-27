@@ -22,6 +22,9 @@ This works by creating a session cookie.
 ## Using with Update Manager
 If [Update Manager](https://github.com/xxsimoxx/codepotent-update-manager) is installed you can skip redirections for it's endpoints by adding `define('XSX_UC_SAFE_UM', true);` to `wp-config.php`.
 
+## REST API
+This plugin disables REST API for unauthenticated users. If you want you can enable REST API adding `define('XSX_UC_SAFE_REST', true);` to `wp-config.php`.
+
 # Screenshots
 <a name="settings">![1](images/screenshot-1.jpg)</a>
 <a name="maintenance">![2](images/screenshot-2.jpg)</a>

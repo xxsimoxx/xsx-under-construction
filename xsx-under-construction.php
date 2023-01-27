@@ -4,7 +4,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: Under Construction
  * Description: Redirect not logged in users. Allow testers to see the site sending a magic link.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Requires PHP: 5.6
  * Requires CP: 1.4
  * Update URI: https://directory.classicpress.net/wp-json/wp/v2/plugins?byslug=xsx-under-construction
@@ -34,10 +34,11 @@ class UnderConstruction {
 	const SLUG = 'xsx-under-construction';
 
 	public function __construct() {
-		add_action('template_redirect', [$this, 'maybe_redirect']);
-		add_action('admin_menu', [$this, 'create_preview_menu'], 100);
+		add_action('template_redirect',          [$this, 'maybe_redirect']);
+		add_action('admin_menu',                 [$this, 'create_preview_menu'], 100);
 		add_action('wp_before_admin_bar_render', [$this, 'toolbar']);
-		add_action('admin_enqueue_scripts', [$this, 'styles']);
+		add_action('admin_enqueue_scripts',      [$this, 'styles']);
+		add_filter('rest_authentication_errors', [$this, 'rest_auth']);
 		register_uninstall_hook(__FILE__, [__CLASS__, 'uninstall']);
 	}
 
@@ -351,6 +352,21 @@ class UnderConstruction {
 		exit();
 
 	}
+
+	public function rest_auth($result) {
+		if ($result===true || is_wp_error( $result ) || is_user_logged_in()) {
+			return $result;
+		}
+		if (defined('\XSX_UC_SAFE_REST') && \XSX_UC_SAFE_REST) {
+			return $result;
+		}
+		return new \WP_Error(
+			'rest_not_logged_in',
+			esc_html__('You are not currently logged in.', 'xsx-under-construction'),
+			['status' => 401]
+		);
+	}
+
 
 	public function toolbar() {
 		global $wp_admin_bar;

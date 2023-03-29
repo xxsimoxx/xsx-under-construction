@@ -347,7 +347,7 @@ class UnderConstruction {
 		}
 
 		// Redirect to selected destination. Not using wp_safe_redirect for flexibility.
-		wp_redirect($this->options['redirect_to'], 307); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+		wp_redirect($this->options['redirect_to'], 302); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 		exit();
 
 	}

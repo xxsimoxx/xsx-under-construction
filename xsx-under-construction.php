@@ -59,8 +59,8 @@ class UnderConstruction {
 			'ver'		  => '001',
 			'redirect_to' => plugin_dir_url(__FILE__).'templates/maintenance-1.html',
 			'keys'        => [
-				['key' => 12453679, 'notes' => 'Key given to Joe.',],
-				['key' => 47893215, 'notes' => 'Key given to Kate.',],
+				['key' => rand('100000000', '999999999'), 'notes' => 'Key given to Joe.',],
+				['key' => rand('100000000', '999999999'), 'notes' => 'Key given to Kate.',],
 			],
 		];
 		$this->save_options();

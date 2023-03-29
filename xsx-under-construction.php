@@ -300,7 +300,7 @@ class UnderConstruction {
 		return false;
 	}
 
-	public function maybe_redirect() {
+	public function maybe_redirect() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		// User logged in can see the site.
 		if (is_user_logged_in()) {
@@ -354,7 +354,7 @@ class UnderConstruction {
 	}
 
 	public function rest_auth($result) {
-		if ($result===true || is_wp_error( $result ) || is_user_logged_in()) {
+		if ($result === true || is_wp_error($result) || is_user_logged_in()) {
 			return $result;
 		}
 		if (defined('\XSX_UC_SAFE_REST') && \XSX_UC_SAFE_REST) {

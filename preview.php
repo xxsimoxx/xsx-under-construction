@@ -16,17 +16,17 @@ if (!isset($_REQUEST['preview'])) { // phpcs:ignore WordPress.Security.NonceVeri
 	exit;
 }
 
-// Sanitize the value of the cookie.
+// Sanitize the value of the cookie and prepare.
 $key = preg_replace('/[^0-9]/', '', sanitize_key(wp_unslash($_REQUEST['preview']))); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+$url = parse_url(site_url());
 
 // Place the cookie
-$cookie_domain = preg_replace('{^https?://}', '', site_url());
 setcookie(
 	'selective_preview',
 	$key,
 	0,
 	'/',
-	$cookie_domain,
+	$url['host'],
 	true,
 	true
 );

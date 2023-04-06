@@ -4,7 +4,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: Under Construction
  * Description: Redirect not logged in users. Allow testers to see the site sending a magic link.
- * Version: 1.3.1
+ * Version: 1.3.2
  * Requires PHP: 5.6
  * Requires CP: 1.4
  * Update URI: https://directory.classicpress.net/wp-json/wp/v2/plugins?byslug=xsx-under-construction
@@ -60,8 +60,8 @@ class UnderConstruction {
 			'ver'		  => '001',
 			'redirect_to' => plugin_dir_url(__FILE__).'templates/maintenance-1.html',
 			'keys'        => [
-				['key' => rand('100000000', '999999999'), 'notes' => 'Key given to Joe.',],
-				['key' => rand('100000000', '999999999'), 'notes' => 'Key given to Kate.',],
+				['key' => wp_rand(10000000, 99999999), 'notes' => 'Key given to Joe.',],
+				['key' => wp_rand(10000000, 99999999), 'notes' => 'Key given to Kate.',],
 			],
 		];
 		$this->save_options();
@@ -374,7 +374,7 @@ class UnderConstruction {
 			'id'    => self::SLUG,
 			'title' => esc_html__('Under Construction', 'xsx-under-construction'),
 			'meta'  => ['class' => 'xuc-admin-bar'],
-			'href'  => admin_url('admin.php?page='.self::SLUG),
+			'href'  => admin_url('options-general.php?page='.self::SLUG),
 		]);
 	}
 
@@ -408,7 +408,7 @@ class UnderConstructionListTable extends \WP_List_Table {
 	}
 
 	// Output columns definition.
-	function get_columns() {
+	public function get_columns() {
 		return [
 			'key'       => esc_html__('Key', 'xsx-under-construction'),
 			'link' 		=> esc_html__('Link', 'xsx-under-construction'),
@@ -417,7 +417,7 @@ class UnderConstructionListTable extends \WP_List_Table {
 	}
 
 	// Output hidden columns.
-	function get_hidden_columns() {
+	public function get_hidden_columns() {
 		return [
 			'link',
 		];
@@ -425,12 +425,12 @@ class UnderConstructionListTable extends \WP_List_Table {
 
 
 	// Just output the column.
-	function column_default($item, $column_name) {
+	public function column_default($item, $column_name) {
 		return $item[$column_name];
 	}
 
 	// For "Key" column add row actions.
-	function column_key($item) {
+	public function column_key($item) {
 		$actions = [
 			'delete' => '<a href="'.wp_nonce_url(add_query_arg(['action' => 'delete', 'key' => $item['key']]), 'delete', '_xuc').'">'.esc_html__('Delete', 'xsx-under-construction').'</a>',
 			'copy'   => '<a href="#" onclick="navigator.clipboard.writeText(\''.$item['link'].'\')">'.esc_html__('Copy to clipboard', 'xsx-under-construction').'</a>',
@@ -440,7 +440,7 @@ class UnderConstructionListTable extends \WP_List_Table {
 	}
 
 	// For "Notes" column if empty add a message.
-	function column_notes($item) {
+	public function column_notes($item) {
 		if ($item['notes'] !== '') {
 			return $item['notes'];
 		}
@@ -448,7 +448,7 @@ class UnderConstructionListTable extends \WP_List_Table {
 	}
 
 	// Prepare our columns and insert data.
-	function prepare_items() {
+	public function prepare_items() {
 		$columns  = $this->get_columns();
 		$hidden   = $this->get_hidden_columns();
 		$sortable = [];

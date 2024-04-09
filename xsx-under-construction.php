@@ -4,7 +4,7 @@
  * -----------------------------------------------------------------------------
  * Plugin Name: Under Construction
  * Description: Redirect not logged in users. Allow testers to see the site sending a magic link.
- * Version: 1.3.2
+ * Version: 1.3.3
  * Requires PHP: 5.6
  * Requires CP: 1.4
  * Update URI: https://directory.classicpress.net/wp-json/wp/v2/plugins?byslug=xsx-under-construction

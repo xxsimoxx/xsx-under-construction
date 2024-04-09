@@ -18,7 +18,7 @@ if (!isset($_REQUEST['preview'])) { // phpcs:ignore WordPress.Security.NonceVeri
 
 // Sanitize the value of the cookie and prepare.
 $key = preg_replace('/[^0-9]/', '', sanitize_key(wp_unslash($_REQUEST['preview']))); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-$url = parse_url(site_url());
+$url = parse_url(site_url()); // phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url
 
 // Place the cookie
 setcookie(
